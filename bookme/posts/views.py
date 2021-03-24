@@ -20,3 +20,11 @@ class AboutView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = 'contact.html'
+
+
+class ExperienceView(TemplateView):
+    template_name = 'experience.html'
+
+
+class NewsroomView(TemplateView):
+    template_name = 'newsroom.html'

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'posts',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
