@@ -23,8 +23,14 @@ class ContactView(TemplateView):
 
 
 class ExperienceView(TemplateView):
+    """
+    This class is for the creation of the Experience Object.
+    """
     template_name = 'experience.html'
 
 
 class NewsroomView(TemplateView):
+    """
+    This class is for the creation of the News Object.
+    """
     template_name = 'newsroom.html'
