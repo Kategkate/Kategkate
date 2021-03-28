@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if turn_on_block %}
+<div class="Location">
+    if turn_on_block = True (or any text we would like to reproduce on the screen)
+</div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+{{request.user}}
+{% else %}
+<p>Guest</p>
+{% endif %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
