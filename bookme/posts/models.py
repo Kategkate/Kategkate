@@ -15,11 +15,6 @@ LABEL_CHOICES = (
     ('SHA', 'Shared Space'),
 )
 
-ADDRESS_CHOICES = (
-    ('A', 'Available'),
-    ('O', 'Occupied'),
-)
-
 
 class Admin(models.Model):
     adminid = models.AutoField(db_column='AdminID', primary_key=True)  # Field name made lowercase.
@@ -64,11 +59,18 @@ class Traveller(models.Model):
 
 
 class Apartment(models.Model):
+
+    STATUS_CHOICES = (
+        ('A', 'Available'),
+        ('O', 'Occupied'),
+    )
+
     apartid = models.AutoField(db_column='apartID', primary_key=True)  # Field name made lowercase.
     roomtype = models.ForeignKey('Roomtype', models.DO_NOTHING, db_column='RoomType',
                                  verbose_name='Room Type')  # Field name made lowercase.
+    summary = models.TextField(max_length=1000, help_text="Enter a brief description of the item")
     is_reserved = models.NullBooleanField(db_column='IS_Reserved')  # Field name made lowercase.
-
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item availability')
 
 class Meta:
     managed = True
@@ -93,7 +95,8 @@ class Rent(models.Model):
 
 class Roomtype(models.Model):
     roomtypeid = models.AutoField(db_column='RoomTypeID', primary_key=True)  # Field name made lowercase.
-    roomtype = models.CharField(db_column='RoomType', max_length=20, blank=True, null=True,verbose_name='Type')  # Field name made lowercase.
+    roomtype = models.CharField(db_column='RoomType', max_length=20, blank=True, null=True,
+                                verbose_name='Type')  # Field name made lowercase.
 
     def __str__(self):
         return self.roomtype
