@@ -1,0 +1,15 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Book you Adventure</a>
+        <a class="navbar-brand" href="/about">About Us</a>
+        <a class="navbar-brand" href="/contact">Contact Us</a>
+        <a class="navbar-brand" href="/newsroom">Newsroom</a>
+        <a class="navbar-brand" href="#">
+            {% if request.user.is_authenticated %}
+            {{request.user}}
+            {% else %}
+            <p>Guest</p>
+            {% endif %}
+        </a>
+    </div>
+</nav>
