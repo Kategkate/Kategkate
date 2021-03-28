@@ -1,22 +1,15 @@
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.db import models
-from django.db.models import Sum, CharField
+from django.db.models import CharField
 from django.shortcuts import reverse
-
-ROOM_CHOICES = (
-    ('Hotel', 'Hotel'),
-    ('Apartment', 'Apartment'),
-    ('House', 'House')
-)
-
-LABEL_CHOICES = (
-    ('WA', 'With Amenities'),
-    ('SHA', 'Shared Space'),
-)
 
 
 class Admin(models.Model):
+    """
+  Model representing the Admin panel
+  """
+
     adminid = models.AutoField(db_column='AdminID', primary_key=True)  # Field name made lowercase.
     adminname = models.CharField(db_column='AdminName', max_length=50, default='giru',
                                  verbose_name='Name')  # Field name made lowercase.
@@ -27,6 +20,9 @@ class Admin(models.Model):
 
 
 class Host(models.Model):
+    """
+Model representing the Host of the apartment
+"""
     host_id = models.AutoField(db_column='Host_ID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=30, blank=True, null=True,
                                   verbose_name='First')  # Field name made lowercase.
@@ -43,6 +39,9 @@ class Host(models.Model):
 
 
 class Traveller(models.Model):
+    """
+Model representing the Traveller, who is booking this apartment
+"""
     traveller_id = models.AutoField(db_column='Traveller_ID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=30, blank=True, null=True,
                                   verbose_name='First')  # Field name made lowercase.
@@ -59,10 +58,24 @@ class Traveller(models.Model):
 
 
 class Apartment(models.Model):
+    """
+    Model representing the Apartment and the options to file different paragraphs
+    """
 
     STATUS_CHOICES = (
         ('A', 'Available'),
         ('O', 'Occupied'),
+    )
+
+    ROOM_CHOICES = (
+        ('Hotel', 'Hotel'),
+        ('Apartment', 'Apartment'),
+        ('House', 'House')
+    )
+
+    LABEL_CHOICES = (
+        ('WA', 'With Amenities'),
+        ('SHA', 'Shared Space'),
     )
 
     apartid = models.AutoField(db_column='apartID', primary_key=True)  # Field name made lowercase.
@@ -70,11 +83,12 @@ class Apartment(models.Model):
                                  verbose_name='Room Type')  # Field name made lowercase.
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the item")
     is_reserved = models.NullBooleanField(db_column='IS_Reserved')  # Field name made lowercase.
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item availability')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item '
+                                                                                                       'availability')
 
-class Meta:
-    managed = True
-    db_table = 'APARTMENT'
+    class Meta:
+        managed = True
+        db_table = 'APARTMENT'
 
 
 class Rent(models.Model):
