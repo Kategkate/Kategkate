@@ -7,8 +7,8 @@ from django.shortcuts import reverse
 
 class Admin(models.Model):
     """
-  Model representing the Admin panel
-  """
+    Model representing the Admin Panel.
+    """
 
     adminid = models.AutoField(db_column='AdminID', primary_key=True)  # Field name made lowercase.
     adminname = models.CharField(db_column='AdminName', max_length=50, default='giru',
@@ -21,8 +21,8 @@ class Admin(models.Model):
 
 class Host(models.Model):
     """
-Model representing the Host of the apartment
-"""
+    Model representing the Host of the Apartment.
+    """
     host_id = models.AutoField(db_column='Host_ID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=30, blank=True, null=True,
                                   verbose_name='First')  # Field name made lowercase.
@@ -40,8 +40,8 @@ Model representing the Host of the apartment
 
 class Traveller(models.Model):
     """
-Model representing the Traveller, who is booking this apartment
-"""
+   Model representing the Traveller, who is booking the apartment.
+   """
     traveller_id = models.AutoField(db_column='Traveller_ID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=30, blank=True, null=True,
                                   verbose_name='First')  # Field name made lowercase.
