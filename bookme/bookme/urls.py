@@ -17,7 +17,7 @@ from django.urls import path
 from posts import views
 from django.conf.urls import url, include
 from django.contrib import admin
-from posts.views import AboutView, ContactView
+from posts.views import AboutView, ContactView, ExperienceView, NewsroomView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('about/', AboutView.as_view()),
     path('contact/', ContactView.as_view()),
+    path('experience/', ExperienceView.as_view()),
+    path('newsroom/', NewsroomView.as_view()),
 ]
