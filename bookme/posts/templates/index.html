@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
-
+{% load posts_extras %}
 {% block content %}
+
+{% if turn_on_block %}
+<div class="Location">
+    if turn_on_block = True (or any text we would like to reproduce on the screen)
+</div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+{{request.user}}
+{% else %}
+<p>Guest</p>
+{% endif %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +25,8 @@
 <p>Start by exploring Stays or Experiences. Apply filters like entire homes, self check-in, or pets allowed to narrow your options. You can also save favorites to a wishlist.</p>
 <h2>2. Book</h2>
 <p>Once you’ve found what you’re looking for, learn about your host, read past guest reviews, and get the details on cancellation options—then book in just a few clicks.</p>
+<p>Server's Time is {% get_time %}</p>
+<p>{{"Hello, World!"|inversion}}</p>
 </body>
 </html>
 {% endblock %}

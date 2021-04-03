@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic.edit import UpdateView, CreateView
 
 
 def index(request):
