@@ -19,6 +19,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from posts.views import AboutView, ContactView, ExperienceView, NewsroomView
 
+from posts.views import ApartListView, ApartDetailView, ApartmentCreateView, ApartmentEditView
+
 urlpatterns = [
     path('', views.index, name='index'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
@@ -28,4 +30,10 @@ urlpatterns = [
     path('contact/', ContactView.as_view()),
     path('experience/', ExperienceView.as_view()),
     path('newsroom/', NewsroomView.as_view()),
+    path('apartment/', ApartListView.as_view(), name='apartment'),
+    path('apartment/<pk>', ApartDetailView.as_view()),
+    #path('accounts/', include('accounts.urls')),
+    path('apartment/create/', ApartmentCreateView.as_view(), name='apartment-create'),
+    path('apartment/<pk>/edit/', ApartmentEditView.as_view(), name='apartment-edit'),
+    #path('accounts/', include('allauth.urls')),
 ]

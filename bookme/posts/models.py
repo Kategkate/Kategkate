@@ -1,8 +1,5 @@
-from django.db.models.signals import post_save
-from django.conf import settings
 from django.db import models
 from django.db.models import CharField
-from django.shortcuts import reverse
 
 
 class Admin(models.Model):
@@ -40,7 +37,7 @@ class Host(models.Model):
 
 class Traveller(models.Model):
     """
-   Model representing the Traveller, who is booking the apartment.
+   Model representing the Traveller, who is booking the apart.
    """
     traveller_id = models.AutoField(db_column='Traveller_ID', primary_key=True)  # Field name made lowercase.
     first_name = models.CharField(db_column='First_Name', max_length=30, blank=True, null=True,
@@ -81,6 +78,9 @@ class Apartment(models.Model):
     apartid = models.AutoField(db_column='apartID', primary_key=True)  # Field name made lowercase.
     roomtype = models.ForeignKey('Roomtype', models.DO_NOTHING, db_column='RoomType',
                                  verbose_name='Room Type')  # Field name made lowercase.
+    name = models.TextField(max_length=100, default='')
+    price = models.IntegerField(blank=False, default=0)
+    house_rules = models.TextField(max_length=100, default='', help_text="Put your house rules here")
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the item")
     is_reserved = models.NullBooleanField(db_column='IS_Reserved')  # Field name made lowercase.
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item '
@@ -118,3 +118,40 @@ class Roomtype(models.Model):
     class Meta:
         managed = True
         db_table = 'RoomType'
+
+
+class AbstractItem(models.Model):
+    """ Abstract Item """
+
+    name = models.CharField(max_length=80)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+
+class Amenity(AbstractItem):
+    """ Amenity Model Definition """
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+
+class Facility(AbstractItem):
+    """ Facility Model Definition """
+
+    pass
+
+    class Meta:
+        verbose_name_plural = "Facilities"
+
+
+class HouseRule(AbstractItem):
+    """ HouseRule Model Definition """
+
+    class Meta:
+        verbose_name = "House Rule"
+
+
