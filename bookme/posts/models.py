@@ -155,3 +155,16 @@ class HouseRule(AbstractItem):
         verbose_name = "House Rule"
 
 
+class Tag(models.Model):
+    """
+    Model representing the tag for the goods category.
+    """
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        """
+        String for representing the Tag.
+        """
+        return self.name
+
+

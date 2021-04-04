@@ -32,7 +32,7 @@ urlpatterns = [
     path('newsroom/', NewsroomView.as_view()),
     path('apartment/', ApartListView.as_view(), name='apartment'),
     path('apartment/<pk>', ApartDetailView.as_view()),
-    #path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
     path('apartment/create/', ApartmentCreateView.as_view(), name='apartment-create'),
     path('apartment/<pk>/edit/', ApartmentEditView.as_view(), name='apartment-edit'),
     #path('accounts/', include('allauth.urls')),

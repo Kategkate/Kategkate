@@ -33,4 +33,3 @@ class ApartUpdateForm(ModelForm):
     class Meta:
         model = Apartment
         fields = ['summary', 'price', 'status']
-
