@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+    <form method="get">
+        {% for field in filter.form %}
+        <div class="field-wrapper row mb-2">
+            <div class="col-3">
+                {{ field.label_tag }}
+            </div>
+            <div class="col">
+                {{ field.error }}
+                {{ field }}
+            </div>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Search" class="btn btn-submit">
+    </form>
     {% for item in item_list %}
     {{item.name}}
     {{item.summary}}
@@ -8,22 +22,6 @@
     <a href="?tag={{tag.name}}">{{tag.name}}</a>
     {% endfor %}
     {% endfor %}
-    <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-    </div>
+    {% include 'components/paginator_bar.html' %}
 </div>
 {% endblock %}

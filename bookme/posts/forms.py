@@ -25,6 +25,7 @@ class ApartCreateForm(forms.ModelForm):
             "house_rules",
             "roomtype",
             "status",
+            "tags",
         )
 
 
