@@ -25,6 +25,7 @@ class ApartCreateForm(forms.ModelForm):
             "house_rules",
             "roomtype",
             "status",
+            "tags",
         )
 
 
@@ -33,4 +34,3 @@ class ApartUpdateForm(ModelForm):
     class Meta:
         model = Apartment
         fields = ['summary', 'price', 'status']
-

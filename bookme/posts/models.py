@@ -83,8 +83,8 @@ class Apartment(models.Model):
     house_rules = models.TextField(max_length=100, default='', help_text="Put your house rules here")
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the item")
     is_reserved = models.NullBooleanField(db_column='IS_Reserved')  # Field name made lowercase.
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item '
-                                                                                                       'availability')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item availability')
+    tags = models.ManyToManyField('Tag', related_name='apartments')
 
     class Meta:
         managed = True
@@ -153,5 +153,18 @@ class HouseRule(AbstractItem):
 
     class Meta:
         verbose_name = "House Rule"
+
+
+class Tag(models.Model):
+    """
+    Model representing the tag for the goods category.
+    """
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        """
+        String for representing the Tag.
+        """
+        return self.name
 
 

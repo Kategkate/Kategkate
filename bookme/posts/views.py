@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView
+from django_filters import FilterSet
+from django_filters.views import FilterView
 
 from posts.forms import SearchForm, ApartCreateForm
 from posts.models import Apartment
@@ -40,17 +42,33 @@ class NewsroomView(TemplateView):
     template_name = 'newsroom.html'
 
 
+class ApartmentFilter(FilterSet):
+    """
+    This class is for the filters which are set for the apartments.
+    """
+
+    class Meta:
+        model = Apartment
+        fields = ['tags', 'price']
+
+
 class ApartListView(ListView):
     template_name = 'apartments/apartment.html'
-    paginate_by = 10
+    paginate_by = 1
     model = Apartment
     context_object_name = 'item_list'
 
+    def get_context_data(self, **kwargs):
+        context = super(ApartListView, self).get_context_data(**kwargs)
+        context['filter'] = ApartmentFilter(data=self.request.GET)
+        return context
+
     def get_queryset(self):
-        tag = self.request.GET.get('tag', None)
-        if tag:
-            return super(ApartListView, self).get_queryset().filter(tags__name=tag)
-        return super(ApartListView, self).get_queryset()
+        print(self.request.GET)
+        return ApartmentFilter(
+            self.request.GET,
+            super(ApartListView, self).get_queryset()
+        ).qs
 
 
 class ApartDetailView(DetailView):
