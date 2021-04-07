@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.forms import forms, ModelForm, CharField
+from django.forms import forms, ModelForm, CharField, inlineformset_factory
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+
+from .models import Profile, User
 
 
 class UserUpdateForm(ModelForm):
@@ -27,3 +29,14 @@ class UserUpdateForm(ModelForm):
         return new_age
 
 
+class ProfileUpdateForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['nickname', 'avatar']
+
+
+ProfileFormset = inlineformset_factory(
+    User,
+    Profile,
+    fields=['nickname', 'avatar']
+)

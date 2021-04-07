@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'ckeditor',
     'django_filters',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,4 @@ CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
 
 STATIC_URL = '/static/'
 SITE_ID = 1
+AUTH_USER_MODEL = 'accounts.User'
