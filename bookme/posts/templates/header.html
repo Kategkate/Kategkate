@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Book your Adventure</a>
@@ -6,7 +7,11 @@
         <a class="navbar-brand" href="/newsroom">Newsroom</a>
         <a class="navbar-brand" href="#">
             {% if request.user.is_authenticated %}
+            {% thumbnail item.image "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
             {{request.user}}
+            {{request.user.avatar}}
+            {% endthumbnail %}
             {% else %}
             <p>Guest</p>
             {% endif %}

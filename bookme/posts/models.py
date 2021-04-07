@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import CharField
+from sorl.thumbnail import ImageField
 
 
 class Admin(models.Model):
@@ -10,6 +11,7 @@ class Admin(models.Model):
     adminid = models.AutoField(db_column='AdminID', primary_key=True)  # Field name made lowercase.
     adminname = models.CharField(db_column='AdminName', max_length=50, default='giru',
                                  verbose_name='Name')  # Field name made lowercase.
+    avatar = ImageField()
 
     class Meta:
         managed = True
@@ -85,6 +87,7 @@ class Apartment(models.Model):
     is_reserved = models.NullBooleanField(db_column='IS_Reserved')  # Field name made lowercase.
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=True, default='a', help_text='Item availability')
     tags = models.ManyToManyField('Tag', related_name='apartments')
+    avatar = ImageField(upload_to='whatever')
 
     class Meta:
         managed = True
