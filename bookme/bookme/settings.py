@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'django_filters',
     'accounts',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [

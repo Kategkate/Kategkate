@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
+from sorl.thumbnail import ImageField
+
 
 
 # here there is an option to add customized fields for the user
@@ -7,6 +9,7 @@ from django.db import models
 
 class User(AbstractUser):
     age = models.PositiveSmallIntegerField()
+    avatar = ImageField()
     #def save(self, *args, **kwargs):
         # created = self.id is None
         # super(User, self).save(*args, **kwargs)
@@ -23,5 +26,5 @@ class Profile(models.Model):
     """
 
     user = models.OneToOneField(User, models.CASCADE)
-    avatar = models.ImageField()
+    avatar = ImageField()
     nickname = models.CharField(max_length=20)
