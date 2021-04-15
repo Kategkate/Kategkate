@@ -1,15 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.dispatch import receiver
-from django.db.models.signals import post_save
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
-from django.views.generic import UpdateView, CreateView
-
+from django.views.generic import UpdateView
 from accounts.forms import UserUpdateForm, ProfileFormset
-
-
 # LoginRequiredMixin добавляет проверку того, что пользователь авторизован в системе
 
 
@@ -27,7 +22,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 def update_profile_view(request):
     if request.method == 'POST':
-        formset = ProfileFormset(request.POST, request.FILES, instance= request.user)
+        formset = ProfileFormset(request.POST, request.FILES, instance=request.user)
         if formset.is_valid():
             profile = formset.save()
             print(profile)
@@ -35,3 +30,19 @@ def update_profile_view(request):
     else:
         formset = ProfileFormset()
     return render(request, 'profile_update.html', {'formset': formset})
+
+
+@login_required
+def personal(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileFormset(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            profile.save()
+            return redirect('register-professional')
+    else:
+        form = ProfileFormset(instance=profile)
+    return render(request, 'accounts/user-update.html', {
+        'form': form
+    })

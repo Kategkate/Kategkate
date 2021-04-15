@@ -35,5 +35,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('apartment/create/', ApartmentCreateView.as_view(), name='apartment-create'),
     path('apartment/<pk>/edit/', ApartmentEditView.as_view(), name='apartment-edit'),
-    #path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
